@@ -1,0 +1,16 @@
+{
+    "name": "gh-templating",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Jorge Van de Sompel",
+    "license": "ISC",
+    "dependencies": {
+        "inquirer": "^9.1.4"
+    },
+    "type": "module"
+}
