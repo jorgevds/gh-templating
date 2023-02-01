@@ -26,19 +26,27 @@ You can also install this package globally by adding the `-g` flag. Note: `sudo`
 
 ## Use
 
-When both this package and the official GitHub CLI installed, running this tool is as easy as running:
+When both this package and the official GitHub CLI installed, you can select one of your own templates by running the `use` command:
 
-`gh-templating`
+`gh-templating use`
 
 or
 
-`npx gh-templating`
+`npx gh-templating use`
 
 This package will attempt to find your PR templates within your codebase. Currently, this package will search within your `.github/` folder. This package looks for a `.github/templates` folder first, so I recommend organizing your templates as such.
 
-If you wish to use a different directory, you can supply it to this package. Simply add the path to your directory to the command. For example:
+If you wish to specify a different templates directory, you can supply it to this package. For example:
 
-`gh-templating other/version-control/pull-requests/templates`
+`gh-templating use other/version-control/pull-requests/templates`
+
+You can also tell the `use` command to create a PR with a specific title:
+
+`gh-templating use bugfix/stop-app-from-exploding`
+
+Both of these options can be combined to a create a more complete command:
+
+`gh-templating use bugfix/stop-app-from-exploding other/version-control/pull-requests/templates`
 
 <br>
 <hr>
