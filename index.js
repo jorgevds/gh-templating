@@ -3,7 +3,7 @@ import fs from "fs";
 import { execSync } from "child_process";
 import path from "path";
 
-const main = (pathToTemplates) => {
+export const main = (pathToTemplates) => {
     let config = { path: pathToTemplates, choices: [] };
 
     if (pathToTemplates) {
