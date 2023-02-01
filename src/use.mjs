@@ -3,7 +3,7 @@ import fs from "fs";
 import { execSync } from "child_process";
 import path from "path";
 
-export const use = (title, pathToTemplates) => {
+export const use = (pathToTemplates, title) => {
     let config = { path: pathToTemplates, choices: [] };
 
     if (pathToTemplates) {
@@ -75,7 +75,7 @@ export const use = (title, pathToTemplates) => {
                     ...`${config.path}/${template}`.split("/")
                 );
 
-                const prTitle = title ?? "PR: Fill in title";
+                const prTitle = title ?? "PR:-Fill-in-title";
 
                 execSync(
                     `gh pr create --title ${prTitle} --body-file ${pathToTemplate}`
@@ -88,7 +88,7 @@ export const use = (title, pathToTemplates) => {
             });
     } else {
         console.error(
-            `Fatal error: no choices available. Expected any choice, but found none.`
+            `Fatal error: no choices available. Expected at least one choice, but found none.`
         );
     }
 };

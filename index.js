@@ -7,8 +7,8 @@ const program = new Command();
 program
     .command("use")
     .description("Select a template and create a new PR")
-    .argument("[title]", "Title of your new PR - string - optional")
     .argument("[path]", "Path to templates directory - string - optional")
-    .action(use);
+    .argument("[title]", "Title of your new PR - string - optional")
+    .action((path, title) => use(path, title));
 
 program.parse(process.argv);
