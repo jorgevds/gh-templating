@@ -2,6 +2,15 @@ import inquirer from "inquirer";
 import fs from "fs";
 import path from "path";
 import { DEFAULT_PATH, DEFAULT_DIRNAME } from "./util/global-constants.mjs";
+import { create } from "./create.mjs";
+
+export const initAndCreate = (pathToTemplates, directoryName, yes, initial) => {
+    init(pathToTemplates, directoryName, yes).then(() => {
+        if (initial) {
+            create(pathToTemplates);
+        }
+    });
+};
 
 export const init = async (pathToTemplates, directoryName, yes) => {
     if (yes) {
