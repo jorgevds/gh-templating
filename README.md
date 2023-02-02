@@ -42,11 +42,11 @@ If you wish to specify a different templates directory, you can supply it to thi
 
 You can also tell the `use` command to create a PR with a specific title:
 
-`gh-templating use bugfix/stop-app-from-exploding`
+`gh-templating use -t bugfix/stop-app-from-exploding`
 
 Both of these options can be combined to a create a more complete command:
 
-`gh-templating use bugfix/stop-app-from-exploding other/version-control/pull-requests/templates`
+`gh-templating use -t bugfix/stop-app-from-exploding other/version-control/pull-requests/templates`
 
 ## Init
 

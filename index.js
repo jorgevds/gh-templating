@@ -7,9 +7,13 @@ const program = new Command();
 program
     .command("use")
     .description("Select a template and create a new PR")
-    .argument("[path]", "Path to templates directory - string - optional")
-    .argument("[title]", "Title of your new PR - string - optional")
-    .action((path, title) => use(path, title));
+    .argument("[path]", "Path to templates directory - string - optional", "")
+    .option(
+        "-t, --title <string>",
+        "Title of your new PR - string - optional",
+        ""
+    )
+    .action((path, { title }) => use(path, title));
 
 program
     .command("init")

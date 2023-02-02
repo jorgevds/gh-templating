@@ -12,7 +12,7 @@ export const use = (pathToTemplates, title) => {
                 .readdirSync(pathToTemplates)
                 .filter((file) => file.includes(".md"));
 
-            choices = templates;
+            config.choices = templates;
         } catch (error) {
             console.error(
                 `Fatal error: no path provided or found to templates directory. Received ${pathToTemplates}`
@@ -75,7 +75,7 @@ export const use = (pathToTemplates, title) => {
                     ...`${config.path}/${template}`.split("/")
                 );
 
-                const prTitle = title ?? "PR:-Fill-in-title";
+                const prTitle = title !== "" ? title : "PR:-Fill-in-title";
 
                 execSync(
                     `gh pr create --title ${prTitle} --body-file ${pathToTemplate}`
