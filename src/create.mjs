@@ -36,7 +36,7 @@ const writeSelectionToTemplatesFolder = (
         fs.mkdirSync(finalPath);
     }
 
-    if (chosenTemplates.length == 1 && title !== "") {
+    if (chosenTemplates.length == 1 && title) {
         const templateData = fs.readFileSync(
             path.join(pathToOwnTemplates, chosenTemplates[0])
         );
@@ -63,7 +63,6 @@ const writeSelectionToTemplatesFolder = (
 };
 
 export const create = (pathToTemplates, pathToReadTemplates, title, all) => {
-    console.log(pathToReadTemplates);
     if (all) {
         return writeSelectionToTemplatesFolder(
             pathToTemplates,

@@ -66,6 +66,10 @@ This package also provides defaults. If you leave each prompt blank, gh-templati
 
 `gh-templating init -y`
 
+If you wish to segway immediately into adding templates from the package, you can add the `-i` flag to specify initial templates immediately after creating your directory:
+
+`gh-templating init -i`
+
 ## Create
 
 This package can also help you get started by generating new template files for you. These templates are generic versions set up by the package. These templates are a nice jumping off point for you to adjust to your project's needs. Alternatively, they might just be complete enough for you not to have to worry about making your own!

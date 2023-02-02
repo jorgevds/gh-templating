@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-import { use, init, create } from "./src/index.mjs";
+import { use, create, initAndCreate } from "./src/index.mjs";
 import { Command } from "commander";
 
 const program = new Command();
@@ -24,7 +24,13 @@ program
         "-y, --yes",
         "Skip prompts and arguments and immediately create the default directory - boolean - optional"
     )
-    .action((path, dirName, { yes }) => init(path, dirName, yes));
+    .option(
+        "-i, --initial",
+        "After initializing, segway into the create workflow to add templates - boolean - optional"
+    )
+    .action((path, dirName, { yes, initial }) =>
+        initAndCreate(path, dirName, yes, initial)
+    );
 
 program
     .command("create")
