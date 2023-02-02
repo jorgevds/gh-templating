@@ -16,6 +16,10 @@ program
     .description("Initialize a directory for your templates")
     .argument("[path]", "Path to your new directory - string - optional")
     .argument("[dirName]", "Name of your new directory - string - optional")
-    .action((path, dirName) => init(path, dirName));
+    .option(
+        "-y, --yes",
+        "Skip prompts and arguments and immediately create the default directory - boolean - optional"
+    )
+    .action((path, dirName, { yes }) => init(path, dirName, yes));
 
 program.parse(process.argv);
