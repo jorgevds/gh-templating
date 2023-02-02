@@ -9,6 +9,7 @@ This tool finds your PR templates, prompts a selection menu, remembers your sele
 1. [Prerequisites](#prerequisites)
 2. [Installation](#installation)
 3. [Use](#use)
+4. [Init](#init)
 
 ## Prerequisites
 
@@ -47,6 +48,22 @@ You can also tell the `use` command to create a PR with a specific title:
 Both of these options can be combined to a create a more complete command:
 
 `gh-templating use -t bugfix/stop-app-from-exploding other/version-control/pull-requests/templates`
+
+## Init
+
+This package can also help you get started on your magical PR templating journey! To get the ball rolling, run the init command in your project:
+
+`gh-templating init`
+
+With no arguments provided, gh-templating will prompt you for both the path to the directory and the directory name. Once you pass those in, a new directory will be created where you can begin creating your PR templates.
+
+You can skip these prompts by providing both arguments at the start:
+
+`gh-templating init .github templates`
+
+This package also provides defaults. If you leave each prompt blank, gh-templating will create a default directory called templates in your .github folder. Alternatively, you can pass the optional argument `-y` to short-circuit and immediately create the default directory.
+
+`gh-templating init -y`
 
 <br>
 <hr>
