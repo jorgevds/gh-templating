@@ -10,6 +10,7 @@ This tool finds your PR templates, prompts a selection menu, remembers your sele
 2. [Installation](#installation)
 3. [Use](#use)
 4. [Init](#init)
+5. [Create](#create)
 
 ## Prerequisites
 
@@ -64,6 +65,36 @@ You can skip these prompts by providing both arguments at the start:
 This package also provides defaults. If you leave each prompt blank, gh-templating will create a default directory called templates in your .github folder. Alternatively, you can pass the optional argument `-y` to short-circuit and immediately create the default directory.
 
 `gh-templating init -y`
+
+## Create
+
+This package can also help you get started by generating new template files for you. These templates are generic versions set up by the package. These templates are a nice jumping off point for you to adjust to your project's needs. Alternatively, they might just be complete enough for you not to have to worry about making your own!
+
+To create a new template, run the `create` command:
+
+`gh-templating create`
+
+A prompt will... prompt you for all the templates you wish to add. This list of options is a multiselect list, meaning you can add more than just one at a time.
+
+You can specify the directory you wish these templates to be in as well:
+
+`gh-templating create .github/internal/other/long-path/how-far-does-this-go/templates`
+
+By default, gh-templating will look inside the `.github/templates` directory.
+
+This list is provided by the package internally, as the template bodies are too. If you wish to continue on from your own templates, you can do so! Specify the path of template files you wish to have as possible options by supplying it to the command:
+
+`gh-templating create -o .github/internal/other/long-path/how-far-does-this-go/templates/not-yet/maybe-here/no/ok/templates`
+
+You can also set the filename for a chosen template. Note: this currently only works if you've selected one template. To provide a filename for a template, specify the filename value by setting the -t (or --title) flag:
+
+`gh-templating create -t this_is_my_new_cool_template`
+
+Finally, if you'd rather not choose, you can skip all prompts and arguments by passing the -a (or --all) flag to the `create` command:
+
+`gh-templating create -a`
+
+Doing so will immediately add all the package's templates to your template directory.
 
 <br>
 <hr>

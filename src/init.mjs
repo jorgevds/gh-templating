@@ -1,9 +1,7 @@
 import inquirer from "inquirer";
 import fs from "fs";
 import path from "path";
-
-const DEFAULT_PATH = ".github";
-const DEFAULT_DIRNAME = "templates";
+import { DEFAULT_PATH, DEFAULT_DIRNAME } from "./util/global-constants.mjs";
 
 export const init = async (pathToTemplates, directoryName, yes) => {
     if (yes) {
@@ -84,7 +82,7 @@ const promptUserForDirName = async () => {
 };
 
 const makeDirectories = (dirPath, dirName) => {
-    const joinedPath = path.join(...`${dirPath}/${dirName}`.split("/"));
+    const joinedPath = path.join(dirPath, dirName);
 
     if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath);
@@ -95,6 +93,6 @@ const makeDirectories = (dirPath, dirName) => {
             "Init: this directory already exists. Please re-run the 'init' command if you want to make a new one."
         );
     } else {
-        fs.mkdirSync(path.join(...`${dirPath}/${dirName}`.split("/")));
+        fs.mkdirSync(path.join(dirPath, dirName));
     }
 };
