@@ -9,6 +9,7 @@ This tool finds your PR templates, prompts a selection menu, remembers your sele
 1. [Prerequisites](#prerequisites)
 2. [Installation](#installation)
 3. [Use](#use)
+4. [Init](#init)
 
 ## Prerequisites
 
