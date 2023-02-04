@@ -1,13 +1,14 @@
 {
     "name": "gh-templating",
-    "version": "1.6.0",
+    "version": "1.6.1",
     "description": "",
     "main": "index.js",
     "bin": {
         "gh-templating": "./index.js"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
+        "test:ci": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
     },
     "keywords": [
         "cli",
@@ -35,5 +36,8 @@
         "commander": "^10.0.0",
         "inquirer": "^9.1.4"
     },
-    "type": "module"
+    "type": "module",
+    "devDependencies": {
+        "jest": "^29.4.1"
+    }
 }
