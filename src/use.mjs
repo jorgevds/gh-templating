@@ -1,13 +1,18 @@
 import inquirer from "inquirer";
-import { execSync } from "child_process";
 import path from "path";
 import { getConfig } from "./util/template-choices.mjs";
+import { executeCommand } from "./util/execute-command.mjs";
+
+export const useCommand = async (pathToTemplates, title) => {
+    const command = await use(pathToTemplates, title);
+    executeCommand(command, "Use");
+};
 
 export const use = (pathToTemplates, title) => {
     const config = getConfig(pathToTemplates);
 
     if (config.choices.length > 0) {
-        inquirer
+        return inquirer
             .prompt([
                 {
                     type: "list",
@@ -19,15 +24,14 @@ export const use = (pathToTemplates, title) => {
             ])
             .then((answers) => {
                 const template = answers["PR Template"];
+
                 const pathToTemplate = path.join(
                     ...`${config.path}/${template}`.split("/")
                 );
 
-                const prTitle = title !== "" ? title : "PR:-Fill-in-title";
+                const prTitle = title ? title : "PR:-Fill-in-title";
 
-                execSync(
-                    `gh pr create --title ${prTitle} --body-file ${pathToTemplate}`
-                );
+                return `gh pr create --title "${prTitle}" --body-file ${pathToTemplate}`;
             })
             .catch((error) => {
                 console.error(

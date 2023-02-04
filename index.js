@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-import { use, create, initAndCreate } from "./src/index.mjs";
+import { useCommand, create, initCommand } from "./src/index.mjs";
 import { Command } from "commander";
 
 const program = new Command();
@@ -13,7 +13,7 @@ program
         "Title of your new PR - string - optional",
         ""
     )
-    .action((path, { title }) => use(path, title));
+    .action((path, { title }) => useCommand(path, title));
 
 program
     .command("init")
@@ -29,7 +29,7 @@ program
         "After initializing, segway into the create workflow to add templates - boolean - optional"
     )
     .action((path, dirName, { yes, initial }) =>
-        initAndCreate(path, dirName, yes, initial)
+        initCommand(path, dirName, yes, initial)
     );
 
 program
