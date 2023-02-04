@@ -1,2 +1,13 @@
-tests/
+node_modules
+ds_store
+coverage
+
+.prettierrc
+
 .github/
+.gitignore
+
+tests/
+jest.config.js
+
+.vscode

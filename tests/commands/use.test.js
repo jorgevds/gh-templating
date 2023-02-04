@@ -1,15 +1,13 @@
 import { use } from "../../src/use";
 import inquirer from "inquirer";
 import jest from "jest-mock";
-import child_process from "child_process";
 
 describe("The use function", () => {
-    const original = console.error;
-    const origExec = child_process.execSync;
+    const originalConsoleError = console.error;
+    const originalInqPrompt = inquirer.prompt;
 
     beforeEach(() => {
         console.error = jest.fn();
-        child_process.execSync = jest.fn();
     });
 
     it("should error when no choices are available", async () => {
@@ -17,7 +15,16 @@ describe("The use function", () => {
 
         await expect(use()).resolves;
         expect(console.error).toHaveBeenCalledWith(
-            "Fatal error: no choices available. Expected at least one choice, but found none."
+            "Fatal error: Expected at least one choice, but found none. Looked in .github/templates and the .github ROOT folder."
+        );
+    });
+
+    it("should error when no choices are available when directed to a directory with no templates", async () => {
+        inquirer.prompt = jest.fn().mockResolvedValue();
+
+        await expect(use(".github/templates/no-dir")).resolves;
+        expect(console.error).toHaveBeenCalledWith(
+            "Fatal error: Expected at least one choice, but found none. Looked in .github/templates/no-dir, .github/templates, and the .github ROOT folder"
         );
     });
 
@@ -52,7 +59,7 @@ describe("The use function", () => {
     });
 
     afterEach(() => {
-        console.error = original;
-        child_process.execSync = origExec;
+        console.error = originalConsoleError;
+        inquirer.prompt = originalInqPrompt;
     });
 });
