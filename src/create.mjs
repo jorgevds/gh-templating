@@ -24,6 +24,10 @@ const writeSelectionToTemplatesFolder = (
     chosenTemplates,
     title
 ) => {
+    const finalChosenTemplates = Array.isArray(chosenTemplates)
+        ? chosenTemplates
+        : [chosenTemplates];
+
     const finalPath = pathToTemplates
         ? pathToTemplates
         : path.join(DEFAULT_PATH, DEFAULT_DIRNAME);
@@ -36,9 +40,9 @@ const writeSelectionToTemplatesFolder = (
         fs.mkdirSync(finalPath);
     }
 
-    if (chosenTemplates.length == 1 && title) {
+    if (finalChosenTemplates.length == 1 && title) {
         const templateData = fs.readFileSync(
-            path.join(pathToOwnTemplates, chosenTemplates[0])
+            path.join(pathToOwnTemplates, finalChosenTemplates[0])
         );
 
         const finalTitle =
@@ -46,11 +50,12 @@ const writeSelectionToTemplatesFolder = (
 
         const fileName = path.join(finalPath, finalTitle);
 
-        return fs.writeFileSync(fileName, templateData);
+        fs.writeFileSync(fileName, templateData);
+        return `Wrote to one location with title: ${title}`;
     }
 
-    for (let index = 0; index < chosenTemplates.length; index++) {
-        const template = chosenTemplates[index];
+    for (let index = 0; index < finalChosenTemplates.length; index++) {
+        const template = finalChosenTemplates[index];
 
         const templateData = fs.readFileSync(
             path.join(pathToOwnTemplates, template)
@@ -60,6 +65,8 @@ const writeSelectionToTemplatesFolder = (
 
         fs.writeFileSync(fileName, templateData);
     }
+
+    return `Wrote to ${finalChosenTemplates.length} locations`;
 };
 
 export const create = (pathToTemplates, pathToReadTemplates, title, all) => {
@@ -71,7 +78,7 @@ export const create = (pathToTemplates, pathToReadTemplates, title, all) => {
         );
     }
 
-    inquirer
+    return inquirer
         .prompt(createPrompt(pathToReadTemplates))
         .then((answers) =>
             writeSelectionToTemplatesFolder(
