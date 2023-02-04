@@ -22,7 +22,7 @@ Please refer to their [official documentation](https://cli.github.com/) for help
 
 To install, simply run:
 
-`npm install gh-templating`
+`npm install gh-templating --save-dev`
 
 You can also install this package globally by adding the `-g` flag. Note: `sudo` rights may be required.
 

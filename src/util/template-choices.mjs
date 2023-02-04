@@ -8,11 +8,9 @@ export const getMarkdownFilenames = (dirName) => {
 };
 
 export const getConfig = (pathToTemplates) => {
-    let config = { path: pathToTemplates, choices: [] };
-
     if (pathToTemplates) {
         try {
-            config = setConfig(pathToTemplates);
+            return setConfig(pathToTemplates);
         } catch (error) {
             console.error(
                 `Fatal error: no path provided or found to templates directory. Received ${pathToTemplates}`
@@ -26,25 +24,17 @@ export const getConfig = (pathToTemplates) => {
         {
             try {
                 const pathToSet = path.join(...`.github/templates`.split("/"));
-                config = setConfig(pathToSet);
+                return setConfig(pathToSet);
             } catch (error) {
                 console.error(
-                    `No templates found in: ROOT:.github/templates. Looking in ROOT:.github/`
+                    `No templates found in: ROOT:.github/templates. Looking in ROOT:.github/templates`
                 );
             }
         }
     } else {
-        try {
-            const pathToSet = ".github";
-            config = setConfig(pathToSet);
-        } catch (error) {
-            console.error(
-                `Fatal error: no templates found in codebase. Please specify a path to your templates.`
-            );
-        }
+        const pathToSet = ".github";
+        return setConfig(pathToSet);
     }
-
-    return config;
 };
 
 const setConfig = (pathToJoin) => {

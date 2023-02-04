@@ -11,7 +11,7 @@ export const useCommand = async (pathToTemplates, title) => {
 export const use = (pathToTemplates, title) => {
     const config = getConfig(pathToTemplates);
 
-    if (config.choices.length > 0) {
+    if (config && config.choices.length > 0) {
         return inquirer
             .prompt([
                 {
@@ -33,14 +33,18 @@ export const use = (pathToTemplates, title) => {
 
                 return `gh pr create --title "${prTitle}" --body-file ${pathToTemplate}`;
             })
-            .catch((error) => {
+            .catch((error) =>
                 console.error(
                     `Inquirer error: something went wrong processing your answer: ${error}`
-                );
-            });
+                )
+            );
     } else {
         console.error(
-            `Fatal error: no choices available. Expected at least one choice, but found none.`
+            `Fatal error: Expected at least one choice, but found none. ${
+                pathToTemplates
+                    ? `Looked in ${pathToTemplates}, .github/templates, and the .github ROOT folder`
+                    : "Looked in .github/templates and the .github ROOT folder."
+            }`
         );
     }
 };

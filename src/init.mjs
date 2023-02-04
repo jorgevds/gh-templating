@@ -5,25 +5,27 @@ import { DEFAULT_PATH, DEFAULT_DIRNAME } from "./util/global-constants.mjs";
 import { create } from "./create.mjs";
 
 export const initCommand = (pathToTemplates, directoryName, yes, initial) => {
-    init(pathToTemplates, directoryName, yes).then(() => {
+    return init(pathToTemplates, directoryName, yes).then(() => {
         if (initial) {
-            create(pathToTemplates);
+            return create(pathToTemplates);
         }
     });
 };
 
 export const init = async (pathToTemplates, directoryName, yes) => {
     if (yes) {
-        return makeDirectories(DEFAULT_PATH, DEFAULT_DIRNAME);
+        makeDirectories(DEFAULT_PATH, DEFAULT_DIRNAME);
+        return path.join(DEFAULT_PATH, DEFAULT_DIRNAME);
     }
 
     let dirPath = pathToTemplates;
     let dirName = directoryName;
 
     if (!pathToTemplates && !directoryName) {
-        const { path, dirName } = await resolveWithoutArgs();
+        const { dirPath, dirName } = await resolveWithoutArgs();
 
-        return makeDirectories(path, dirName);
+        makeDirectories(dirPath, dirName);
+        return path.join(dirPath, dirName);
     }
 
     if (!pathToTemplates) {
@@ -35,13 +37,14 @@ export const init = async (pathToTemplates, directoryName, yes) => {
     }
 
     makeDirectories(dirPath, dirName);
+    return path.join(dirPath, dirName);
 };
 
-const resolveWithoutArgs = async () => {
-    const path = await promptUserForPath();
+export const resolveWithoutArgs = async () => {
+    const dirPath = await promptUserForPath();
     const dirName = await promptUserForDirName();
 
-    return { path, dirName };
+    return { dirPath, dirName };
 };
 
 const promptUserForPath = async () => {
