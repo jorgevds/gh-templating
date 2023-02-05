@@ -28,13 +28,27 @@ program
         "-i, --initial",
         "After initializing, segway into the create workflow to add templates - boolean - optional"
     )
-    .action((path, dirName, { yes, initial }) =>
-        initCommand(path, dirName, yes, initial)
+    .option(
+        "-o, --own <string>",
+        "Path to your own templates - string - optional",
+        ""
+    )
+    .option(
+        "-t, --title <string>",
+        "Title of your new PR template. Only works when selecting one template - string - optional",
+        ""
+    )
+    .option(
+        "-a, --all",
+        "Skip prompts and arguments and immediately add all templates - boolean - optional"
+    )
+    .action((path, dirName, { yes, initial, own, title, all }) =>
+        initCommand(path, dirName, yes, initial, own, title, all)
     );
 
 program
     .command("create")
-    .description("Initialize a directory for your templates")
+    .description("Add a template to your codebase")
     .argument("[path]", "Path to your new directory - string - optional")
     .option(
         "-o, --own <string>",

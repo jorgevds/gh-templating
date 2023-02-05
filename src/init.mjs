@@ -4,10 +4,18 @@ import path from "path";
 import { DEFAULT_PATH, DEFAULT_DIRNAME } from "./util/global-constants.mjs";
 import { create } from "./create.mjs";
 
-export const initCommand = (pathToTemplates, directoryName, yes, initial) => {
+export const initCommand = (
+    pathToTemplates,
+    directoryName,
+    yes,
+    initial,
+    own,
+    title,
+    all
+) => {
     return init(pathToTemplates, directoryName, yes).then(() => {
         if (initial) {
-            return create(pathToTemplates);
+            return create(pathToTemplates, own, title, all);
         }
     });
 };
