@@ -28,8 +28,8 @@ describe("The create command", () => {
             undefined,
             true
         );
-        expect(createMessage).toBe(
-            "Wrote backport_template.md,bugfix_template.md,empty_template.md,feature_template.md,hotfix_template.md,release_template.md to .github/templates, sourced from /Users/jorgevandesompel/Documents/gh-templating/templates"
+        expect(createMessage).toContain(
+            "Wrote backport_template.md,bugfix_template.md,empty_template.md,feature_template.md,hotfix_template.md,release_template.md to .github/templates"
         );
     });
 
@@ -43,8 +43,8 @@ describe("The create command", () => {
             undefined,
             "my-new-template.md"
         );
-        expect(createMessage).toBe(
-            "Wrote my-new-template.md to .github/templates, sourced from /Users/jorgevandesompel/Documents/gh-templating/templates"
+        expect(createMessage).toContain(
+            "Wrote my-new-template.md to .github/templates"
         );
     });
 
@@ -75,9 +75,7 @@ describe("The create command", () => {
             undefined,
             true
         );
-        expect(createMessage).toBe(
-            "Wrote bugfix.md to rootfolder, sourced from /Users/jorgevandesompel/Documents/gh-templating/templates"
-        );
+        expect(createMessage).toContain("Wrote bugfix.md to rootfolder");
     });
 
     afterEach(() => {
