@@ -1,11 +1,6 @@
 import jest from "jest-mock";
 import fs from "fs";
-import path from "path";
 import inquirer from "inquirer";
-import {
-    DEFAULT_PATH,
-    DEFAULT_DIRNAME,
-} from "../../src/util/global-constants.mjs";
 import { initCommand } from "../../src/init.mjs";
 import { create } from "../../src/create.mjs";
 
@@ -15,6 +10,7 @@ describe("The create command", () => {
     const originalReaddirSync = fs.readdirSync;
     const originalReadFileSync = fs.readFileSync;
     const originalWriteFileSync = fs.writeFileSync;
+    const originalConsoleInfo = console.info;
     const originalInqPrompt = inquirer.prompt;
 
     beforeEach(() => {
@@ -22,16 +18,19 @@ describe("The create command", () => {
         fs.mkdirSync = jest.fn().mockReturnValue();
         fs.readFileSync = jest.fn().mockReturnValue("");
         fs.writeFileSync = jest.fn().mockReturnValue("");
+        console.info = jest.fn();
     });
 
-    it("should create a new file with a chosen title", async () => {
+    it("should add all templates when supplied with the -a flag", async () => {
         const createMessage = await create(
             undefined,
             undefined,
             undefined,
             true
         );
-        expect(createMessage).toBe("Wrote to 6 locations");
+        expect(createMessage).toContain(
+            "Wrote backport_template.md,bugfix_template.md,empty_template.md,feature_template.md,hotfix_template.md,release_template.md to .github/templates"
+        );
     });
 
     it("should create a new file with a chosen title", async () => {
@@ -44,8 +43,8 @@ describe("The create command", () => {
             undefined,
             "my-new-template.md"
         );
-        expect(createMessage).toBe(
-            "Wrote to one location with title: my-new-template.md"
+        expect(createMessage).toContain(
+            "Wrote my-new-template.md to .github/templates"
         );
     });
 
@@ -59,7 +58,9 @@ describe("The create command", () => {
             "my-own-folder",
             undefined
         );
-        expect(createMessage).toBe("Wrote to 1 locations");
+        expect(createMessage).toBe(
+            "Wrote bugfix.md to .github/templates, sourced from my-own-folder"
+        );
     });
 
     it("should call create after calling init when passed the -i flag", async () => {
@@ -74,7 +75,7 @@ describe("The create command", () => {
             undefined,
             true
         );
-        expect(createMessage).toBe("Wrote to 1 locations");
+        expect(createMessage).toContain("Wrote bugfix.md to rootfolder");
     });
 
     afterEach(() => {
@@ -84,5 +85,6 @@ describe("The create command", () => {
         fs.readFileSync = originalReadFileSync;
         fs.writeFileSync = originalWriteFileSync;
         inquirer.prompt = originalInqPrompt;
+        console.info = originalConsoleInfo;
     });
 });

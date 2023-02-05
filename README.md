@@ -70,6 +70,10 @@ If you wish to segway immediately into adding templates from the package, you ca
 
 `gh-templating init -i`
 
+All options that apply to the `create` command will also work when combined with this flag! This way you can e.g. figure out the final destination for your templates by answering the prompts in `init` and quickly add all the available templates to your directory:
+
+`gh-templating init -y -a`
+
 ## Create
 
 This package can also help you get started by generating new template files for you. These templates are generic versions set up by the package. These templates are a nice jumping off point for you to adjust to your project's needs. Alternatively, they might just be complete enough for you not to have to worry about making your own!

@@ -51,7 +51,10 @@ const writeSelectionToTemplatesFolder = (
         const fileName = path.join(finalPath, finalTitle);
 
         fs.writeFileSync(fileName, templateData);
-        return `Wrote to one location with title: ${title}`;
+
+        const message = `Wrote ${title} to ${finalPath}, sourced from ${pathToOwnTemplates}`;
+        console.info(message);
+        return message;
     }
 
     for (let index = 0; index < finalChosenTemplates.length; index++) {
@@ -66,7 +69,9 @@ const writeSelectionToTemplatesFolder = (
         fs.writeFileSync(fileName, templateData);
     }
 
-    return `Wrote to ${finalChosenTemplates.length} locations`;
+    const message = `Wrote ${finalChosenTemplates} to ${finalPath}, sourced from ${pathToOwnTemplates}`;
+    console.info(message);
+    return message;
 };
 
 export const create = (pathToTemplates, pathToReadTemplates, title, all) => {
